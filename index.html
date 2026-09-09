@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Taquito example dapp</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <main>
+      <h1>Taquito example dapp</h1>
+      <p>Connects to Kukai on Tezos X Previewnet with Taquito and Beacon.</p>
+      <p id="status">Not connected</p>
+      <button id="connect">Connect</button>
+      <button id="send" hidden>Send 1 mutez to burn address</button>
+      <button id="sign" hidden>Sign "Hello world!"</button>
+      <button id="disconnect" hidden>Disconnect</button>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

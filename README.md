@@ -4,7 +4,9 @@ The smallest possible dapp that connects to [Kukai](https://kukai.app) on
 [Tezos X Previewnet](https://previewnet.tezosx.nomadic-labs.com/) using
 [Taquito](https://taquito.io) and Beacon. No framework, one TypeScript file.
 
-It can connect, send 1 mutez to the burn address, and disconnect.
+It can connect, send 1 mutez to the burn address, sign a message, and disconnect.
+
+Live at <https://taquito-example-dapp-basic.pages.dev>.
 
 ## Run it
 
@@ -30,6 +32,12 @@ Everything that matters is in [`src/main.ts`](src/main.ts):
 - **Events.** Use `wallet.client.subscribeToEvent` to react to connects and
   disconnects. Do not pass `eventHandlers` in the wallet options for this; that
   replaces Beacon's own handler and its UI stops updating.
+- **Signing.** Arbitrary messages must start with `Tezos Signed Message:` and be
+  packed as a Micheline string (`05` + `01` + length + bytes) before calling
+  `requestSignPayload` with `SigningType.MICHELINE`. `packDataBytes` from
+  `@taquito/michel-codec` does the packing.
+- **Errors.** When the user rejects in the wallet, Beacon rejects with the raw
+  error response (`{ errorType: 'ABORTED_ERROR', ... }`), not an `Error`.
 - **Buffer.** Beacon and Taquito expect Node's `Buffer` in the browser. Vite does
   not provide it, so [`src/polyfills.ts`](src/polyfills.ts) installs it first.
 
@@ -39,4 +47,5 @@ Everything that matters is in [`src/main.ts`](src/main.ts):
 npm run build
 ```
 
-The output in `dist/` is static and can be hosted anywhere.
+The output in `dist/` is static and can be hosted anywhere. The live site is
+Cloudflare Pages building `main` with `npm run build` and output directory `dist`.
